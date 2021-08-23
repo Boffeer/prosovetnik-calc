@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="ru" prefix="og: http://ogp.me/ns#">
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+
+		<title>Title</title>
+		<link rel="stylesheet" href="./assets/poppa/poppa.min.css" />
+		<link rel="stylesheet" href="./css/normalize.css" />
+		<link rel="stylesheet" href="./css/bootstrap-grid.min.css" />
+		<link
+			rel="stylesheet"
+			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+		/>
+		<link rel="stylesheet" href="./css/index.min.css" />
+		<link
+			rel="stylesheet"
+			href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
+		/>
+	</head>
+	<body>
+		<section class="calc-tutor">
+			<div class="container">
+				<h2 class="calc-tutor__title">
+					Обозначения <br />
+					калькулятора
+				</h2>
+				<ul class="calc-tutor-legend">
+					<li class="calc-tutor-legend-item">
+						<span class="calc-tutor-legend-item__name">Количество лет </span>
+						<span class="calc-tutor-legend-item__decs"
+							>период на которые вы готовы инвестировать</span
+						>
+					</li>
+					<li class="calc-tutor-legend-item">
+						<span class="calc-tutor-legend-item__name"
+							>Среднегодовая доходность
+						</span>
+						<span class="calc-tutor-legend-item__decs"
+							>средний % доходности за 1 год капитала</span
+						>
+					</li>
+					<li class="calc-tutor-legend-item">
+						<span class="calc-tutor-legend-item__name">Начальная сумма </span>
+						<span class="calc-tutor-legend-item__decs"
+							>сумма денег, которую вы инвестируете в самом начале</span
+						>
+					</li>
+					<li class="calc-tutor-legend-item">
+						<span class="calc-tutor-legend-item__name">Сумма пополнений </span>
+						<span class="calc-tutor-legend-item__decs"
+							>сумма денежных средств, которая вносится ежегодно</span
+						>
+					</li>
+					<li class="calc-tutor-legend-item">
+						<span class="calc-tutor-legend-item__name">Инфляция </span>
+						<span class="calc-tutor-legend-item__decs"
+							>среднегодовой % изменения покупательной способности денег</span
+						>
+					</li>
+					<li class="calc-tutor-legend-item">
+						<span class="calc-tutor-legend-item__name"
+							>Инвестированный капитал
+						</span>
+						<span class="calc-tutor-legend-item__decs"
+							>сумма инвестированных денег: начальная сумма + сумма пополнения *
+							количество лет</span
+						>
+					</li>
+					<li class="calc-tutor-legend-item">
+						<span class="calc-tutor-legend-item__name"
+							>Ваш капитал с учётом простого процента
+						</span>
+						<span class="calc-tutor-legend-item__decs"
+							>инвестированный капитал + сумма дохода, которую вы получите
+							<br />
+							если будете «выводить» проценты</span
+						>
+					</li>
+					<li class="calc-tutor-legend-item">
+						<span class="calc-tutor-legend-item__name"
+							>Ваш капитал с учётом сложного процента
+						</span>
+						<span class="calc-tutor-legend-item__decs"
+							>инвестированный капитал + сумма дохода, которую вы получите
+							<br />
+							если НЕ будете «выводить» проценты</span
+						>
+					</li>
+				</ul>
+			</div>
+		</section>
+
+		<section class="calc-calculator">
+			<div class="container container--calculator">
+				<div class="calc-calculator-controls">
+					<h2 class="calc-calculator-controls__title">
+						финансовый калькулятор
+					</h2>
+					<p class="calc-calculator-controls__subtitle">
+						Введите данные для расчёта доходности
+					</p>
+					<article
+						class="
+							calc-calculator-controls-control
+							calc-calculator-controls-control--years
+						"
+					>
+						<h3 class="calc-calculator-controls-control__name">
+							Количество лет
+						</h3>
+						<div class="calc-calculator-controls-control-stepper">
+							<button
+								class="
+									calc-calculator-controls-control-stepper__step
+									calc-calculator-controls-control-stepper__step--minus
+								"
+							>
+								+
+							</button>
+							<div class="calc-calculator-controls-control-stepper-value">
+								<input
+									type="text"
+									class="calc-calculator-controls-control-stepper-value__input"
+									value="26"
+								/>
+							</div>
+							<button
+								class="
+									calc-calculator-controls-control-stepper__step
+									calc-calculator-controls-control-stepper__step--plus
+								"
+							>
+								−
+							</button>
+						</div>
+						<div class="calc-calculator-controls-control-range">
+							<input
+								type="range"
+								name="range"
+								class="calc-calculator-controls-control-range__slider"
+								value="26"
+								min="1"
+								max="100"
+							/>
+						</div>
+					</article>
+					<article
+						class="
+							calc-calculator-controls-control
+							calc-calculator-controls-control--median
+						"
+					>
+						<h3 class="calc-calculator-controls-control__name">
+							Среднегодовая доходность
+						</h3>
+						<div class="calc-calculator-controls-control-stepper">
+							<button
+								class="
+									calc-calculator-controls-control-stepper__step
+									calc-calculator-controls-control-stepper__step--minus
+								"
+							>
+								+
+							</button>
+							<div
+								class="
+									calc-calculator-controls-control-stepper-value
+									calc-calculator-controls-control-stepper-value--percent
+								"
+							>
+								<input
+									type="text"
+									class="calc-calculator-controls-control-stepper-value__input"
+									value="8"
+								/>
+							</div>
+							<button
+								class="
+									calc-calculator-controls-control-stepper__step
+									calc-calculator-controls-control-stepper__step--plus
+								"
+							>
+								−
+							</button>
+						</div>
+						<div class="calc-calculator-controls-control-range">
+							<input
+								type="range"
+								name="range"
+								class="calc-calculator-controls-control-range__slider"
+								value="8"
+								min="1"
+								max="100"
+							/>
+						</div>
+					</article>
+					<article
+						class="
+							calc-calculator-controls-control
+							calc-calculator-controls-control--onetime
+						"
+					>
+						<h3 class="calc-calculator-controls-control__name">
+							Разовые инвестиции
+						</h3>
+						<div class="calc-calculator-controls-control-stepper">
+							<div
+								class="
+									calc-calculator-controls-control-stepper-value
+									calc-calculator-controls-control-stepper-value--money
+								"
+							>
+								<input
+									type="text"
+									class="calc-calculator-controls-control-stepper-value__input"
+									value="100000"
+								/>
+							</div>
+						</div>
+						<div class="calc-calculator-controls-control-range">
+							<input
+								type="range"
+								name="range"
+								class="calc-calculator-controls-control-range__slider"
+								value="100000"
+								min="100000"
+								max="100000000"
+							/>
+						</div>
+					</article>
+					<article
+						class="
+							calc-calculator-controls-control
+							calc-calculator-controls-control--per-year
+						"
+					>
+						<h3 class="calc-calculator-controls-control__name">
+							Ежегодноинвестируемая сумма
+						</h3>
+						<div class="calc-calculator-controls-control-stepper">
+							<div
+								class="
+									calc-calculator-controls-control-stepper-value
+									calc-calculator-controls-control-stepper-value--money
+								"
+							>
+								<input
+									type="text"
+									class="calc-calculator-controls-control-stepper-value__input"
+									value="10000"
+								/>
+							</div>
+						</div>
+						<div class="calc-calculator-controls-control-range">
+							<input
+								type="range"
+								name="range"
+								class="calc-calculator-controls-control-range__slider"
+								value="10000"
+								min="1"
+								max="100000000"
+							/>
+						</div>
+					</article>
+					<article
+						class="
+							calc-calculator-controls-control
+							calc-calculator-controls-control--inflation
+						"
+					>
+						<h3 class="calc-calculator-controls-control__name">Инфляция</h3>
+						<div class="calc-calculator-controls-control-stepper">
+							<button
+								class="
+									calc-calculator-controls-control-stepper__step
+									calc-calculator-controls-control-stepper__step--minus
+								"
+							>
+								+
+							</button>
+							<div
+								class="
+									calc-calculator-controls-control-stepper-value
+									calc-calculator-controls-control-stepper-value--percent
+								"
+							>
+								<input
+									type="text"
+									class="calc-calculator-controls-control-stepper-value__input"
+									value="7"
+								/>
+							</div>
+							<button
+								class="
+									calc-calculator-controls-control-stepper__step
+									calc-calculator-controls-control-stepper__step--plus
+								"
+							>
+								−
+							</button>
+						</div>
+						<div class="calc-calculator-controls-control-range">
+							<input
+								type="range"
+								name="range"
+								class="calc-calculator-controls-control-range__slider"
+								value="7"
+								min="1"
+								max="100"
+							/>
+						</div>
+					</article>
+					<div class="calc-calculator-controls-calculate">
+						<button class="calc-calculator-controls-calculate__button">
+							расчитать доходность
+						</button>
+					</div>
+				</div>
+
+				<div class="calc-calculator-charts">
+					<div class="calc-calculator-charts-chart__wrapper">
+						<div
+							class="
+								calc-calculator-charts-chart
+								calc-calculator-charts-chart--without
+							"
+						>
+							<h3 class="calc-calculator-charts-chart__title">
+								Доход
+								<span class="calc-calculator-charts-chart__title--color">
+									без учета
+								</span>
+								инфляции
+							</h3>
+							<div class="calc-calculator-charts-chart-summary">
+								<article
+									class="
+										calc-calculator-charts-chart-summary-stat
+										calc-calculator-charts-chart-summary-stat--fund
+									"
+								>
+									<h3 class="calc-calculator-charts-chart-summary-stat__name">
+										Инвестированный капитал
+									</h3>
+									<p class="calc-calculator-charts-chart-summary-stat__value">
+										360 000
+									</p>
+								</article>
+								<article
+									class="
+										calc-calculator-charts-chart-summary-stat
+										calc-calculator-charts-chart-summary-stat--easy
+									"
+								>
+									<h3 class="calc-calculator-charts-chart-summary-stat__name">
+										капитал с учётом простого процента
+									</h3>
+									<p class="calc-calculator-charts-chart-summary-stat__value">
+										228 800
+									</p>
+								</article>
+								<article
+									class="
+										calc-calculator-charts-chart-summary-stat
+										calc-calculator-charts-chart-summary-stat--hard
+									"
+								>
+									<h3 class="calc-calculator-charts-chart-summary-stat__name">
+										капитал с учётом сложного процента
+									</h3>
+									<p class="calc-calculator-charts-chart-summary-stat__value">
+										1 179 179
+									</p>
+								</article>
+							</div>
+							<div class="calc-calculator-charts-chart-summary-container"></div>
+						</div>
+
+						<div
+							class="
+								calc-calculator-charts-chart calc-calculator-charts-chart--with
+							"
+						>
+							<h3 class="calc-calculator-charts-chart__title">
+								Доход
+								<span class="calc-calculator-charts-chart__title--color">
+									без учета
+								</span>
+								инфляции
+							</h3>
+							<div class="calc-calculator-charts-chart-summary">
+								<article
+									class="
+										calc-calculator-charts-chart-summary-stat
+										calc-calculator-charts-chart-summary-stat--fund
+									"
+								>
+									<h3 class="calc-calculator-charts-chart-summary-stat__name">
+										Инвестированный капитал
+									</h3>
+									<p class="calc-calculator-charts-chart-summary-stat__value">
+										360 000
+									</p>
+								</article>
+								<article
+									class="
+										calc-calculator-charts-chart-summary-stat
+										calc-calculator-charts-chart-summary-stat--easy
+									"
+								>
+									<h3 class="calc-calculator-charts-chart-summary-stat__name">
+										капитал с учётом простого процента
+									</h3>
+									<p class="calc-calculator-charts-chart-summary-stat__value">
+										228 800
+									</p>
+								</article>
+								<article
+									class="
+										calc-calculator-charts-chart-summary-stat
+										calc-calculator-charts-chart-summary-stat--hard
+									"
+								>
+									<h3 class="calc-calculator-charts-chart-summary-stat__name">
+										капитал с учётом сложного процента
+									</h3>
+									<p class="calc-calculator-charts-chart-summary-stat__value">
+										1 179 179
+									</p>
+								</article>
+							</div>
+							<div class="calc-calculator-charts-chart-summary-container"></div>
+						</div>
+					</div>
+					<button class="calc-calculator-charts__return">
+						вернуться назад
+					</button>
+				</div>
+			</div>
+		</section>
+
+		<script src="./js/jquery.min.js"></script>
+		<script src="./assets/poppa/poppa.js"></script>
+		<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="./js/index.js"></script>
+	</body>
+</html>
