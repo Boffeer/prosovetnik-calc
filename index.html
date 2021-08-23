@@ -11,15 +11,9 @@
 		<link rel="stylesheet" href="./assets/poppa/poppa.min.css" />
 		<link rel="stylesheet" href="./css/normalize.css" />
 		<link rel="stylesheet" href="./css/bootstrap-grid.min.css" />
-		<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
-		/>
+		<link rel="stylesheet" href="./css/bootstrap.min.css" />
 		<link rel="stylesheet" href="./css/index.min.css" />
-		<link
-			rel="stylesheet"
-			href="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.css"
-		/>
+		<link rel="stylesheet" href="./css/chartist.min.css" />
 	</head>
 	<body>
 		<section class="calc-tutor">
@@ -116,22 +110,31 @@
 							<button
 								class="
 									calc-calculator-controls-control-stepper__step
-									calc-calculator-controls-control-stepper__step--minus
+									calc-calculator-controls-control-stepper__step--plus
 								"
 							>
 								+
 							</button>
 							<div class="calc-calculator-controls-control-stepper-value">
+								<div
+									class="calc-calculator-controls-control-stepper-value__view"
+								></div>
 								<input
-									type="text"
-									class="calc-calculator-controls-control-stepper-value__input"
+									type="number"
+									class="
+										calc-calculator-controls-control-stepper-value__input
+										calc-calculator-controls-control-stepper-value__input--years
+									"
 									value="26"
+									min="1"
+									max="100"
+									maxlength="3"
 								/>
 							</div>
 							<button
 								class="
 									calc-calculator-controls-control-stepper__step
-									calc-calculator-controls-control-stepper__step--plus
+									calc-calculator-controls-control-stepper__step--minus
 								"
 							>
 								−
@@ -161,27 +164,34 @@
 							<button
 								class="
 									calc-calculator-controls-control-stepper__step
-									calc-calculator-controls-control-stepper__step--minus
+									calc-calculator-controls-control-stepper__step--plus
 								"
 							>
 								+
 							</button>
-							<div
-								class="
-									calc-calculator-controls-control-stepper-value
-									calc-calculator-controls-control-stepper-value--percent
-								"
-							>
+							<div class="calc-calculator-controls-control-stepper-value">
+								<div
+									class="
+										calc-calculator-controls-control-stepper-value__view
+										calc-calculator-controls-control-stepper-value__view--percent
+									"
+								></div>
 								<input
-									type="text"
-									class="calc-calculator-controls-control-stepper-value__input"
+									type="number"
+									class="
+										calc-calculator-controls-control-stepper-value__input
+										calc-calculator-controls-control-stepper-value__input--median
+									"
 									value="8"
+									min="1"
+									max="100"
+									maxlength="3"
 								/>
 							</div>
 							<button
 								class="
 									calc-calculator-controls-control-stepper__step
-									calc-calculator-controls-control-stepper__step--plus
+									calc-calculator-controls-control-stepper__step--minus
 								"
 							>
 								−
@@ -208,16 +218,23 @@
 							Разовые инвестиции
 						</h3>
 						<div class="calc-calculator-controls-control-stepper">
-							<div
-								class="
-									calc-calculator-controls-control-stepper-value
-									calc-calculator-controls-control-stepper-value--money
-								"
-							>
+							<div class="calc-calculator-controls-control-stepper-value">
+								<div
+									class="
+										calc-calculator-controls-control-stepper-value__view
+										calc-calculator-controls-control-stepper-value__view--money
+									"
+								></div>
 								<input
-									type="text"
-									class="calc-calculator-controls-control-stepper-value__input"
+									type="number"
+									class="
+										calc-calculator-controls-control-stepper-value__input
+										calc-calculator-controls-control-stepper-value__input--onetime
+									"
 									value="100000"
+									min="100000"
+									max="100000000"
+									maxlength="9"
 								/>
 							</div>
 						</div>
@@ -242,16 +259,23 @@
 							Ежегодноинвестируемая сумма
 						</h3>
 						<div class="calc-calculator-controls-control-stepper">
-							<div
-								class="
-									calc-calculator-controls-control-stepper-value
-									calc-calculator-controls-control-stepper-value--money
-								"
-							>
+							<div class="calc-calculator-controls-control-stepper-value">
+								<div
+									class="
+										calc-calculator-controls-control-stepper-value__view
+										calc-calculator-controls-control-stepper-value__view--money
+									"
+								></div>
 								<input
-									type="text"
-									class="calc-calculator-controls-control-stepper-value__input"
+									type="number"
+									class="
+										calc-calculator-controls-control-stepper-value__input
+										calc-calculator-controls-control-stepper-value__input--yearly
+									"
 									value="10000"
+									min="1"
+									max="100000000"
+									maxlength="9"
 								/>
 							</div>
 						</div>
@@ -277,27 +301,34 @@
 							<button
 								class="
 									calc-calculator-controls-control-stepper__step
-									calc-calculator-controls-control-stepper__step--minus
+									calc-calculator-controls-control-stepper__step--plus
 								"
 							>
 								+
 							</button>
-							<div
-								class="
-									calc-calculator-controls-control-stepper-value
-									calc-calculator-controls-control-stepper-value--percent
-								"
-							>
+							<div class="calc-calculator-controls-control-stepper-value">
+								<div
+									class="
+										calc-calculator-controls-control-stepper-value__view
+										calc-calculator-controls-control-stepper-value__view--percent
+									"
+								></div>
 								<input
-									type="text"
-									class="calc-calculator-controls-control-stepper-value__input"
+									type="number"
+									class="
+										calc-calculator-controls-control-stepper-value__input
+										calc-calculator-controls-control-stepper-value__input--inflation
+									"
 									value="7"
+									min="1"
+									max="100"
+									maxlength="3"
 								/>
 							</div>
 							<button
 								class="
 									calc-calculator-controls-control-stepper__step
-									calc-calculator-controls-control-stepper__step--plus
+									calc-calculator-controls-control-stepper__step--minus
 								"
 							>
 								−
@@ -445,8 +476,8 @@
 
 		<script src="./js/jquery.min.js"></script>
 		<script src="./assets/poppa/poppa.js"></script>
-		<script src="//cdn.jsdelivr.net/chartist.js/latest/chartist.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+		<script src="./js/chartist.min.js"></script>
+		<script src="./js/bootstrap.min.js"></script>
 		<script src="./js/index.js"></script>
 	</body>
 </html>

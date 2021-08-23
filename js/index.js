@@ -25,10 +25,101 @@ $(document).ready(function () {
     }
   );
 
+  /**
+   * Calculator input view
+   */
+  $(".calc-calculator-controls-control-stepper-value__input").each(function () {
+    var currentValue = +$(this).val();
+    currentValueString = currentValue.toLocaleString("ru-Ru");
+    var maxValue = +$(this).attr("max");
+    if (currentValue > maxValue) {
+      currentValue = maxValue;
+      maxValueString = maxValue.toLocaleString("ru-RU");
+      currentValueString = +currentValue;
+      $(this).val(currentValue);
+      var currentViewElement = $(this).siblings()[0];
+      currentViewElement.setAttribute("data-value", maxValueString);
+    } else {
+      var currentViewElement = $(this).siblings()[0];
+      currentViewElement.setAttribute("data-value", currentValueString);
+    }
+    $(this).on("input change", function () {
+      var currentValue = +$(this).val();
+      currentValueString = currentValue.toLocaleString("ru-Ru");
+      var maxValue = +$(this).attr("max");
+      if (currentValue > maxValue) {
+        currentValue = maxValue;
+        maxValueString = maxValue.toLocaleString("ru-RU");
+        currentValueString = +currentValue;
+        $(this).val(currentValue);
+        var currentViewElement = $(this).siblings()[0];
+        currentViewElement.setAttribute("data-value", maxValueString);
+        // } else if (currentValue < 1) {
+        //   currentValueString = 1;
+        //   $(this).val(currentValueString);
+        //   var currentViewElement = $(this).siblings()[0];
+        //   currentViewElement.setAttribute("data-value", currentValueString);
+      } else {
+        var currentViewElement = $(this).siblings()[0];
+        currentViewElement.setAttribute("data-value", currentValueString);
+      }
+      console.log($(this).val());
+    });
+
+    $(this).on("blur", function () {
+      if (currentValue < 1) {
+        currentValueString = 1;
+        $(this).val(currentValueString);
+        var currentViewElement = $(this).siblings()[0];
+        currentViewElement.setAttribute("data-value", currentValueString);
+      }
+    });
+  });
+
+  /**
+   * Calculator stepper
+   */
+  function stepperPlus(ev) {
+    var inputView = ev.target.nextElementSibling.children[0];
+    var inputField = ev.target.nextElementSibling.children[1];
+    var currentValue = inputField.getAttribute("value");
+    currentValue++;
+
+    inputView.setAttribute("data-value", currentValue);
+    inputField.setAttribute("value", currentValue);
+  }
+  function stepperMinus(ev) {
+    var inputView = ev.target.previousElementSibling.children[0];
+    var inputField = ev.target.previousElementSibling.children[1];
+    var currentValue = inputField.getAttribute("value");
+
+    if (currentValue > 1) {
+      currentValue--;
+
+      inputView.setAttribute("data-value", currentValue);
+      inputField.setAttribute("value", currentValue);
+    }
+  }
+  $(".calc-calculator-controls-control-stepper__step--plus").each(function () {
+    $(this).on("click", function (ev) {
+      stepperPlus(ev);
+    });
+  });
+  $(".calc-calculator-controls-control-stepper__step--minus").each(function () {
+    $(this).on("click", function (ev) {
+      stepperMinus(ev);
+    });
+  });
+
   var noInflation = {
-    fund: {
-      total: 360000,
+    arguments: {
+      years: 1,
+      median: 8,
+      onetime: 100000,
+      yearly: 10000,
+      inflation: 7,
     },
+    fund: 360000,
     easyPercent: {
       total: 228800,
       perYear: [
@@ -43,10 +134,94 @@ $(document).ready(function () {
         1250000, 1300000, 1500000,
       ],
     },
-    years: 11,
     yearsArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
   };
 
+  /**
+   * Calculating
+   */
+
+  function getCalculatorValues(calculateObject) {
+    var years = $(
+      ".calc-calculator-controls-control-stepper-value__input--years"
+    ).val();
+    calculateObject.arguments.years = years;
+    var median = $(
+      ".calc-calculator-controls-control-stepper-value__input--median"
+    ).val();
+    calculateObject.arguments.median = median;
+    var onetime = $(
+      ".calc-calculator-controls-control-stepper-value__input--onetime"
+    ).val();
+    calculateObject.arguments.onetime = onetime;
+    var yearly = $(
+      ".calc-calculator-controls-control-stepper-value__input--yearly"
+    ).val();
+    calculateObject.arguments.yearly = yearly;
+    var inflation = $(
+      ".calc-calculator-controls-control-stepper-value__input--inflation"
+    ).val();
+    calculateObject.arguments.inflation = inflation;
+    console.log(calculateObject.arguments);
+  }
+
+  function calculateInvest(calculateObject) {
+    var args = calculateObject.arguments;
+    var B4 = +args.years; //bb4
+    var B5 = +args.median; //bb5
+    var B6 = +args.onetime; //bb6
+    var B7 = +args.yearly; //bb7
+    var B8 = +args.inflation; //bb8
+    // get fund
+    calculateObject.fund = B6 + B7 * B4;
+    // no Inflation Easy Percent
+    calculateObject.easyPercent.total =
+      B6 * (B5 * 0.01 * B4) + B7 * (B5 * 0.01 * B4);
+
+    // no Inflation Hard Percent
+    /**
+     * (B6*(1+(B5*0.01)/1)^B4*1)+(B7*((1+((B5*0.01)/1))^(1*B4)-1)*1/(B5*0.01))-B12
+     * (B6*
+	 * (1+(B5*0.01)/1)^B4*1)+
+	 * (B7*
+			(   (1+((B5*0.01)/1))^(1*B4)   -1   )*
+			1/(B5*0.01)
+		)-
+		B12
+     */
+    var B12 = calculateObject.fund;
+    var square1 = Math.pow(1 + (B5 * 0.01) / 1, B4 * 1);
+    var square2 = Math.pow(1 + (B5 * 0.01) / 1, 1 * B4) - 1;
+    //  * 1) / (B5 * 0.01);
+    //   (B6 * Math.pow(1 + (B5 * 0.01) / 1), B4 * 1) +
+    // calculateObject.hardPercent.total2 =
+    //   (B7 *
+    // //   (B7 * Math.pow(1 + (B5 * 0.01) / 1, 1 * B4 - 1) * 1) / (B5 * 0.01) -
+    // calculateObject.hardPercent.total3 = B12;
+
+    calculateObject.hardPercent.total =
+      B6 * square1 + B7 * square2 * (1 / (B5 * 0.01)) - B12;
+    console.log(calculateObject);
+  }
+
+  $(".calc-calculator-controls-calculate__button").on("click", function () {
+    getCalculatorValues(noInflation);
+    calculateInvest(noInflation);
+
+    $(
+      ".calc-calculator-charts-chart-summary-stat--fund .calc-calculator-charts-chart-summary-stat__value"
+    ).text(noInflation.fund.toLocaleString("ru-RU"));
+    $(
+      ".calc-calculator-charts-chart-summary-stat--easy .calc-calculator-charts-chart-summary-stat__value"
+    ).text(noInflation.easyPercent.total.toLocaleString("ru-RU"));
+    $(
+      ".calc-calculator-charts-chart-summary-stat--hard .calc-calculator-charts-chart-summary-stat__value"
+    ).text(noInflation.hardPercent.total.toLocaleString("ru-RU"));
+  });
+
+  /**
+   * Chart
+   */
   var chartOptions = {
     low: 0,
     showArea: true,

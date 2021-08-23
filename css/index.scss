@@ -105,6 +105,18 @@ $color-diagram-3: var(--c-diagram-3);
 	}
 }
 
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+	-webkit-appearance: none;
+}
+
+input[type="number"],
+input[type="number"]:hover,
+input[type="number"]:focus {
+	appearance: none;
+	-moz-appearance: textfield;
+}
+
 * {
 	box-sizing: border-box;
 	outline: none;
@@ -267,7 +279,6 @@ body {
 }
 .calc-calculator-controls-control-stepper-value {
 	background: #ffffff;
-	border: 1px solid rgba(10, 11, 9, 0.1);
 	box-sizing: border-box;
 	border-radius: 2px;
 	width: auto;
@@ -280,14 +291,32 @@ body {
 	justify-content: center;
 	color: var(--c-accent);
 	position: relative;
+}
+.calc-calculator-controls-control-stepper-value__view {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	left: 0;
+	right: 0;
+	top: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	pointer-events: none;
+	&:before {
+		content: attr(data-value);
+		font-size: 16px;
+		line-height: 140%;
+		color: #1a1b1b;
+		pointer-events: none;
+		margin-right: 2px;
+	}
 	&--percent {
 		&:after {
 			content: "%";
 			color: var(--c-text-second);
 			font-size: 16px;
-			position: absolute;
-			@include absolute-center();
-			right: 0;
+			pointer-events: none;
 		}
 	}
 	&--money {
@@ -295,15 +324,17 @@ body {
 			content: "₽";
 			color: var(--c-text-second);
 			font-size: 16px;
-			position: absolute;
-			@include absolute-center();
-			right: 0;
 		}
 	}
 }
 .calc-calculator-controls-control-stepper-value__input {
+	border: 1px solid rgba(10, 11, 9, 0.1);
 	width: 100%;
 	height: 100%;
+	color: transparent;
+	&:focus {
+		border: 1px solid var(--c-accent);
+	}
 }
 .calc-calculator-controls-control-stepper__step
 	+ .calc-calculator-controls-control-stepper-value {
@@ -344,6 +375,26 @@ body {
 	display: block;
 }
 
+.calc-calculator-charts {
+	display: flex;
+	align-items: flex-end;
+}
+.calc-calculator-charts__return {
+	max-width: 209px;
+	width: 100%;
+	display: block;
+	background: #fff;
+	border: 1px solid #0a0b09;
+	box-sizing: border-box;
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 12px;
+	line-height: 100%;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	color: #0a0b09;
+	padding: 18px;
+}
 .calc-calculator-charts-chart__wrapper {
 	max-width: 830px;
 }
@@ -460,3 +511,11 @@ body {
 		content: attr(title);
 	}
 }
+
+// .calc-calculator-controls-control-stepper-value__view {
+// 	top: -20px;
+// }
+
+// .calc-calculator-controls-control-stepper-value__input {
+// 	color: red;
+// }
