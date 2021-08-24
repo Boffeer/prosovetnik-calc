@@ -111,7 +111,7 @@ $(document).ready(function () {
     });
   });
 
-  var noInflation = {
+  var calcData = {
     arguments: {
       years: 1,
       median: 8,
@@ -120,19 +120,37 @@ $(document).ready(function () {
       inflation: 7,
     },
     fund: 360000,
-    easyPercent: {
-      total: 228800,
-      perYear: [
-        45000, 48000, 50000, 54000, 67878, 75000, 90000, 110000, 125000, 130000,
-        150000,
-      ],
+    noInflation: {
+      easyPercent: {
+        total: 228800,
+        perYear: [
+          45000, 48000, 50000, 54000, 67878, 75000, 90000, 110000, 125000,
+          130000, 150000,
+        ],
+      },
+      hardPercent: {
+        total: 1179179,
+        perYear: [
+          450000, 480000, 500000, 540000, 678789, 750000, 900000, 1100000,
+          1250000, 1300000, 1500000,
+        ],
+      },
     },
-    hardPercent: {
-      total: 1179179,
-      perYear: [
-        450000, 480000, 500000, 540000, 678789, 750000, 900000, 1100000,
-        1250000, 1300000, 1500000,
-      ],
+    inflation: {
+      easyPercent: {
+        total: 28800,
+        perYear: [
+          45000, 48000, 50000, 54000, 67878, 75000, 90000, 110000, 125000,
+          130000, 150000,
+        ],
+      },
+      hardPercent: {
+        total: 64781,
+        perYear: [
+          450000, 480000, 500000, 540000, 678789, 750000, 900000, 1100000,
+          1250000, 1300000, 1500000,
+        ],
+      },
     },
     yearsArray: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11],
   };
@@ -165,58 +183,103 @@ $(document).ready(function () {
     console.log(calculateObject.arguments);
   }
 
-  function calculateInvest(calculateObject) {
-    var args = calculateObject.arguments;
-    var B4 = +args.years; //bb4
-    var B5 = +args.median; //bb5
-    var B6 = +args.onetime; //bb6
-    var B7 = +args.yearly; //bb7
-    var B8 = +args.inflation; //bb8
-    // get fund
-    calculateObject.fund = B6 + B7 * B4;
-    // no Inflation Easy Percent
-    calculateObject.easyPercent.total =
-      B6 * (B5 * 0.01 * B4) + B7 * (B5 * 0.01 * B4);
+  function getNoInflation(calculateObject, B4, B5, B6, B7, B8, B12) {
+    // for (;;) {
 
+    // }
+    // no Inflation Easy Percent
+    calculateObject.noInflation.easyPercent.total =
+      B6 * (B5 * 0.01 * B4) + B7 * (B5 * 0.01 * B4);
     // no Inflation Hard Percent
-    /**
-     * (B6*(1+(B5*0.01)/1)^B4*1)+(B7*((1+((B5*0.01)/1))^(1*B4)-1)*1/(B5*0.01))-B12
-     * (B6*
-	 * (1+(B5*0.01)/1)^B4*1)+
-	 * (B7*
-			(   (1+((B5*0.01)/1))^(1*B4)   -1   )*
-			1/(B5*0.01)
-		)-
-		B12
-     */
-    var B12 = calculateObject.fund;
     var square1 = Math.pow(1 + (B5 * 0.01) / 1, B4 * 1);
     var square2 = Math.pow(1 + (B5 * 0.01) / 1, 1 * B4) - 1;
-    //  * 1) / (B5 * 0.01);
-    //   (B6 * Math.pow(1 + (B5 * 0.01) / 1), B4 * 1) +
-    // calculateObject.hardPercent.total2 =
-    //   (B7 *
-    // //   (B7 * Math.pow(1 + (B5 * 0.01) / 1, 1 * B4 - 1) * 1) / (B5 * 0.01) -
-    // calculateObject.hardPercent.total3 = B12;
-
-    calculateObject.hardPercent.total =
+    calculateObject.noInflation.hardPercent.total =
       B6 * square1 + B7 * square2 * (1 / (B5 * 0.01)) - B12;
     console.log(calculateObject);
   }
 
-  $(".calc-calculator-controls-calculate__button").on("click", function () {
-    getCalculatorValues(noInflation);
-    calculateInvest(noInflation);
+  function getInflation(calculateObject, B4, B5, B6, B7, B8, B12) {
+    // inflatoin easy percent
+    calculateObject.inflation.easyPercent.total = Math.round(
+      B6 * ((B5 * 0.01 - B8 * 0.01) * B4) + B7 * ((B5 * 0.01 - B8 * 0.01) * B4)
+    );
 
+    // inflatoin hard percent
+    calculateObject.inflation.hardPercent.total =
+      B6 * Math.pow(1 + (B5 * 0.01 - B8 * 0.01) / 1, B4 * 1) +
+      (B7 * (Math.pow(1 + (B5 * 0.01 - B8 * 0.01) / 1, 1 * B4) - 1) * 1) /
+        (B5 * 0.01 - B8 * 0.01) -
+      B12;
+    calculateObject.inflation.hardPercent.total = Math.round(
+      calculateObject.inflation.hardPercent.total
+    );
+  }
+
+  function calculateInvest(calculateObject) {
+    var args = calculateObject.arguments;
+    var B4 = +args.years;
+    var B5 = +args.median;
+    var B6 = +args.onetime;
+    var B7 = +args.yearly;
+    var B8 = +args.inflation;
+
+    // get fund
+    calculateObject.fund = B6 + B7 * B4;
+    var B12 = calculateObject.fund;
+
+    getNoInflation(calculateObject, B4, B5, B6, B7, B8, B12);
+    getInflation(calculateObject, B4, B5, B6, B7, B8, B12);
+  }
+
+  function getEasyPercentPerYear(obj) {
+    obj.noInflation.easyPercent;
+  }
+
+  $(".calc-calculator-controls-calculate__button").on("click", function () {
+    getCalculatorValues(calcData);
+    calculateInvest(calcData);
+    var noInflationContainer = ".calc-calculator-charts-chart--no-inflation";
+    var inflationContainer = ".calc-calculator-charts-chart--inflation";
+    var statValueCalssName =
+      ".calc-calculator-charts-chart-summary-stat__value";
+
+    //   no inflation
     $(
-      ".calc-calculator-charts-chart-summary-stat--fund .calc-calculator-charts-chart-summary-stat__value"
-    ).text(noInflation.fund.toLocaleString("ru-RU"));
+      noInflationContainer +
+        " .calc-calculator-charts-chart-summary-stat--fund " +
+        statValueCalssName
+    ).text(calcData.fund.toLocaleString("ru-RU"));
     $(
-      ".calc-calculator-charts-chart-summary-stat--easy .calc-calculator-charts-chart-summary-stat__value"
-    ).text(noInflation.easyPercent.total.toLocaleString("ru-RU"));
+      noInflationContainer +
+        " .calc-calculator-charts-chart-summary-stat--easy " +
+        statValueCalssName
+    ).text(calcData.noInflation.easyPercent.total.toLocaleString("ru-RU"));
     $(
-      ".calc-calculator-charts-chart-summary-stat--hard .calc-calculator-charts-chart-summary-stat__value"
-    ).text(noInflation.hardPercent.total.toLocaleString("ru-RU"));
+      noInflationContainer +
+        " .calc-calculator-charts-chart-summary-stat--hard " +
+        statValueCalssName
+    ).text(
+      Math.round(calcData.noInflation.hardPercent.total).toLocaleString("ru-RU")
+    );
+
+    //   inflation
+    $(
+      inflationContainer +
+        " .calc-calculator-charts-chart-summary-stat--fund " +
+        statValueCalssName
+    ).text(calcData.fund.toLocaleString("ru-RU"));
+    $(
+      inflationContainer +
+        " .calc-calculator-charts-chart-summary-stat--easy " +
+        statValueCalssName
+    ).text(calcData.inflation.easyPercent.total.toLocaleString("ru-RU"));
+    $(
+      inflationContainer +
+        " .calc-calculator-charts-chart-summary-stat--hard " +
+        statValueCalssName
+    ).text(
+      Math.round(calcData.inflation.hardPercent.total).toLocaleString("ru-RU")
+    );
   });
 
   /**
@@ -231,10 +294,10 @@ $(document).ready(function () {
   var chartWithInflation = new Chartist.Line(
     chartContainer,
     {
-      labels: noInflation.yearsArray,
+      labels: calcData.yearsArray,
       series: [
-        noInflation.hardPercent.perYear,
-        noInflation.easyPercent.perYear,
+        calcData.noInflation.hardPercent.perYear,
+        calcData.noInflation.easyPercent.perYear,
       ],
     },
     chartOptions
