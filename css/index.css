@@ -343,6 +343,7 @@ body {
   width: 100%;
   height: 100%;
   color: transparent;
+  text-align: center;
 }
 
 .calc-calculator-controls-control-stepper-value__input:focus {
@@ -515,13 +516,6 @@ body {
   position: relative;
 }
 
-.ct-vertical:nth-last-child(7),
-.ct-horizontal:first-child {
-  stroke: #00273d !important;
-  z-index: 2;
-  position: relative;
-}
-
 .ct-series {
   -webkit-transform: translateX(30px);
           transform: translateX(30px);
@@ -565,5 +559,38 @@ body {
   top: 0;
   left: 0;
   content: attr(title);
+}
+
+.calc-calculator-charts-chart-summary-container {
+  margin-left: -15px;
+  position: relative;
+}
+
+.calc-calculator-charts-chart-summary-container:before {
+  content: "";
+  position: absolute;
+  display: block;
+  height: calc(100% - 56px);
+  width: 2px;
+  bottom: 41px;
+  left: 79px;
+  background: #00273d;
+  opacity: 0.2;
+}
+
+.calc-calculator-charts-chart-summary-container:after {
+  content: "";
+  position: absolute;
+  display: block;
+  width: calc(100% - 86px);
+  height: 2px;
+  bottom: 41px;
+  right: calc(0.7%);
+  background: #00273d;
+  opacity: 0.2;
+}
+
+.calc-calculator-charts-chart-summary-container svg {
+  overflow: visible;
 }
 /*# sourceMappingURL=index.css.map */

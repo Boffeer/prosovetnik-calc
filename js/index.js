@@ -183,12 +183,11 @@ $(document).ready(function () {
     console.log(calculateObject.arguments);
   }
 
-  function getNoInflation(calculateObject, B4, B5, B6, B7, B8, B12) {
+  function getNoInflation(calculateObject, B4, B5, B6, B7, B8) {
     calculateObject.noInflation.easyPercent.perYear = [];
     calculateObject.noInflation.hardPercent.perYear = [];
-    for (var year = 1; year <= B4; year++) {
-      console.log(year, B4);
-
+    for (var year = 0; year <= B4; year++) {
+      var B12 = B6 + B7 * year;
       // no Inflation Easy Percent
       var yearEasyResult = B6 * (B5 * 0.01 * year) + B7 * (B5 * 0.01 * year);
 
@@ -202,6 +201,13 @@ $(document).ready(function () {
       );
       calculateObject.noInflation.hardPercent.perYear.push(
         Math.round(yearHardResult)
+      );
+
+      console.log(
+        year,
+        B4,
+        yearHardResult,
+        `${B6} * ${square1} + ${B7} * ${square2} * ${(1 / B5) * 0.01} - ${B12}`
       );
 
       if (year == B4) {
@@ -224,10 +230,11 @@ $(document).ready(function () {
     // console.log(calculateObject);
   }
 
-  function getInflation(calculateObject, B4, B5, B6, B7, B8, B12) {
+  function getInflation(calculateObject, B4, B5, B6, B7, B8) {
     calculateObject.inflation.easyPercent.perYear = [];
     calculateObject.inflation.hardPercent.perYear = [];
-    for (var year = 1; year <= B4; year++) {
+    for (var year = 0; year <= B4; year++) {
+      var B12 = B6 + B7 * year;
       // no Inflation Easy Percent
       var yearEasyResult = Math.round(
         B6 * ((B5 * 0.01 - B8 * 0.01) * year) +
@@ -269,23 +276,38 @@ $(document).ready(function () {
     calculateObject.fund = B6 + B7 * B4;
     var B12 = calculateObject.fund;
 
-    getNoInflation(calculateObject, B4, B5, B6, B7, B8, B12);
-    getInflation(calculateObject, B4, B5, B6, B7, B8, B12);
+    getNoInflation(calculateObject, B4, B5, B6, B7, B8);
+    getInflation(calculateObject, B4, B5, B6, B7, B8);
   }
 
   function getEasyPercentPerYear(obj) {
     obj.noInflation.easyPercent;
   }
 
+  var chartOptions = {
+    // low: 0,
+    showArea: true,
+    height: "304px",
+  };
+
+  /*
+   * get result
+   */
   $(".calc-calculator-controls-calculate__button").on("click", function () {
     getCalculatorValues(calcData);
     calculateInvest(calcData);
+
+    calcData.yearsArray = [];
+    for (var year = 1; year <= calcData.arguments.years; year++) {
+      calcData.yearsArray.push(year);
+    }
+
     var noInflationContainer = ".calc-calculator-charts-chart--no-inflation";
     var inflationContainer = ".calc-calculator-charts-chart--inflation";
     var statValueCalssName =
       ".calc-calculator-charts-chart-summary-stat__value";
 
-    //   no inflation
+    //   no inflation stats
     $(
       noInflationContainer +
         " .calc-calculator-charts-chart-summary-stat--fund " +
@@ -304,7 +326,7 @@ $(document).ready(function () {
       Math.round(calcData.noInflation.hardPercent.total).toLocaleString("ru-RU")
     );
 
-    //   inflation
+    //   inflation stats
     $(
       inflationContainer +
         " .calc-calculator-charts-chart-summary-stat--fund " +
@@ -322,76 +344,93 @@ $(document).ready(function () {
     ).text(
       Math.round(calcData.inflation.hardPercent.total).toLocaleString("ru-RU")
     );
-  });
 
-  /**
-   * Chart
-   */
-  var chartOptions = {
-    low: 0,
-    showArea: true,
-    height: "304px",
-  };
-  var chartContainer = ".calc-calculator-charts-chart-summary-container";
-  var chartWithInflation = new Chartist.Line(
-    chartContainer,
-    {
-      labels: calcData.yearsArray,
-      series: [
-        calcData.noInflation.hardPercent.perYear,
-        calcData.noInflation.easyPercent.perYear,
-      ],
-    },
-    chartOptions
-  );
-
-  chartWithInflation.on("created", function () {
-    var xModifier = 30;
-    // Move labels
-    $(".ct-labels foreignObject").each(function () {
-      if ($(this).attr("x") == 10) {
-        $(this).attr("x", "40");
-        $(this).find("span").addClass("calc-chart-label--y");
-        $(this).find("span").addClass("calc-chart-label");
-      } else {
-        var x = $(this).attr("x");
-        $(this).attr("x", +x + xModifier);
-        $(this).find("span").addClass("calc-chart-label--x");
-        $(this).find("span").addClass("calc-chart-label");
-      }
-    });
-    // Move Grids
-    $(".ct-grids line").each(function () {
-      var x1 = $(this).attr("x1");
-      var x2 = $(this).attr("x2");
-      if ($(this).attr("y1") == 269) {
-        $(this).attr("x1", +x1 + xModifier);
-        $(this).attr("x2", +x2 - xModifier - 8);
-      } else if ($(this).attr("y2") == 15 && $(this).attr("y1") == 15) {
-        $(this).attr("x1", +x1 + xModifier);
-        $(this).attr("x2", +x2 - xModifier);
-      } else if ($(this).attr("y1") == 15) {
-        $(this).attr("x1", +x1 + xModifier);
-        $(this).attr("x2", +x2 + xModifier);
-      } else {
-        $(this).attr("x1", +x1 + xModifier + 2);
-        $(this).attr("x2", +x2 - xModifier - 8);
-      }
-    });
-  });
-  chartWithInflation
-    .on("draw", function (data) {
-      if (data.type === "point") {
-        data.element._node.setAttribute("title", data.value.y + " ₽");
-        data.element._node.setAttribute("data-chart-tooltip", "chart1");
-      }
-    })
-    .on("created", function () {
-      // Initiate Tooltip
-      $(chartContainer).tooltip({
-        selector: '[data-chart-tooltip="chart1"]',
-        container: chartContainer,
-        html: true,
+    if (calcData.arguments.years < 5) {
+      $(".calc-calculator-charts-chart-summary-container").addClass(
+        "calc-calculator-charts-chart-summary-container--low"
+      );
+    } else {
+      $(".calc-calculator-charts-chart-summary-container").removeClass(
+        "calc-calculator-charts-chart-summary-container--low"
+      );
+    }
+    var chartNoInflation = new Chartist.Line(
+      ".calc-calculator-charts-chart--no-inflation .calc-calculator-charts-chart-summary-container",
+      {
+        labels: calcData.yearsArray,
+        series: [
+          calcData.noInflation.hardPercent.perYear,
+          calcData.noInflation.easyPercent.perYear,
+        ],
+      },
+      chartOptions
+    );
+    var chartInflation = new Chartist.Line(
+      ".calc-calculator-charts-chart--inflation .calc-calculator-charts-chart-summary-container",
+      {
+        labels: calcData.yearsArray,
+        series: [
+          calcData.inflation.hardPercent.perYear,
+          calcData.inflation.easyPercent.perYear,
+        ],
+      },
+      chartOptions
+    );
+    var chartsArray = [chartNoInflation, chartInflation];
+    chartsArray.map(function (chart) {
+      chart.on("draw", function (data) {
+        if (data.type === "point") {
+          data.element._node.setAttribute(
+            "title",
+            data.value.y.toLocaleString("ru-RU") + " ₽"
+          );
+          data.element._node.setAttribute("data-chart-tooltip", "chart1");
+        }
+      });
+      chart.on("created", function () {
+        // Initiate Tooltip
+        $(".calc-calculator-charts-chart-summary-container").tooltip({
+          selector: '[data-chart-tooltip="chart1"]',
+          container: ".calc-calculator-charts-chart-summary-container",
+          html: true,
+        });
       });
     });
+
+    //   Align chart
+    chartInflation.on("created", function () {
+      var xModifier = 30;
+      // Move labels
+      $(".ct-labels foreignObject").each(function () {
+        if ($(this).attr("x") == 10) {
+          $(this).attr("x", "40");
+          $(this).find("span").addClass("calc-chart-label--y");
+          $(this).find("span").addClass("calc-chart-label");
+        } else {
+          var x = $(this).attr("x");
+          $(this).attr("x", +x + xModifier);
+          $(this).find("span").addClass("calc-chart-label--x");
+          $(this).find("span").addClass("calc-chart-label");
+        }
+      });
+      // Move Grids
+      $(".ct-grids line").each(function () {
+        var x1 = $(this).attr("x1");
+        var x2 = $(this).attr("x2");
+        if ($(this).attr("y1") == 269) {
+          $(this).attr("x1", +x1 + xModifier);
+          $(this).attr("x2", +x2 - xModifier - 2);
+        } else if ($(this).attr("y2") == 15 && $(this).attr("y1") == 15) {
+          $(this).attr("x1", +x1 + xModifier);
+          $(this).attr("x2", +x2 - xModifier);
+        } else if ($(this).attr("y1") == 15) {
+          $(this).attr("x1", +x1 + xModifier);
+          $(this).attr("x2", +x2 + xModifier);
+        } else {
+          $(this).attr("x1", +x1 + xModifier + 2);
+          $(this).attr("x2", +x2 - xModifier - 8);
+        }
+      });
+    });
+  });
 });
