@@ -116,20 +116,21 @@
 								+
 							</button>
 							<div class="calc-calculator-controls-control-stepper-value">
-								<div
-									class="calc-calculator-controls-control-stepper-value__view"
-								></div>
 								<input
 									type="number"
 									class="
 										calc-calculator-controls-control-stepper-value__input
 										calc-calculator-controls-control-stepper-value__input--years
 									"
+									data-input-name="years"
 									value="26"
 									min="1"
 									max="100"
 									maxlength="3"
 								/>
+								<div
+									class="calc-calculator-controls-control-stepper-value__view"
+								></div>
 							</div>
 							<button
 								class="
@@ -140,15 +141,24 @@
 								−
 							</button>
 						</div>
-						<div class="calc-calculator-controls-control-range">
+						<div
+							class="
+								calc-calculator-controls-control-range
+								calc-calculator-controls-control-range--years
+							"
+						>
 							<input
 								type="range"
 								name="range"
 								class="calc-calculator-controls-control-range__slider"
+								data-input-name="years"
 								value="26"
 								min="1"
 								max="100"
 							/>
+							<div
+								class="calc-calculator-controls-control-range__percentage"
+							></div>
 						</div>
 					</article>
 					<article
@@ -170,23 +180,24 @@
 								+
 							</button>
 							<div class="calc-calculator-controls-control-stepper-value">
-								<div
-									class="
-										calc-calculator-controls-control-stepper-value__view
-										calc-calculator-controls-control-stepper-value__view--percent
-									"
-								></div>
 								<input
 									type="number"
 									class="
 										calc-calculator-controls-control-stepper-value__input
 										calc-calculator-controls-control-stepper-value__input--median
 									"
+									data-input-name="median"
 									value="8"
 									min="1"
 									max="100"
 									maxlength="3"
 								/>
+								<div
+									class="
+										calc-calculator-controls-control-stepper-value__view
+										calc-calculator-controls-control-stepper-value__view--percent
+									"
+								></div>
 							</div>
 							<button
 								class="
@@ -197,15 +208,24 @@
 								−
 							</button>
 						</div>
-						<div class="calc-calculator-controls-control-range">
+						<div
+							class="
+								calc-calculator-controls-control-range
+								calc-calculator-controls-control-range--median
+							"
+						>
 							<input
 								type="range"
 								name="range"
 								class="calc-calculator-controls-control-range__slider"
+								data-input-name="median"
 								value="8"
 								min="1"
 								max="100"
 							/>
+							<div
+								class="calc-calculator-controls-control-range__percentage"
+							></div>
 						</div>
 					</article>
 					<article
@@ -219,34 +239,44 @@
 						</h3>
 						<div class="calc-calculator-controls-control-stepper">
 							<div class="calc-calculator-controls-control-stepper-value">
-								<div
-									class="
-										calc-calculator-controls-control-stepper-value__view
-										calc-calculator-controls-control-stepper-value__view--money
-									"
-								></div>
 								<input
 									type="number"
 									class="
 										calc-calculator-controls-control-stepper-value__input
 										calc-calculator-controls-control-stepper-value__input--onetime
 									"
+									data-input-name="onetime"
 									value="100000"
 									min="100000"
 									max="100000000"
 									maxlength="9"
 								/>
+								<div
+									class="
+										calc-calculator-controls-control-stepper-value__view
+										calc-calculator-controls-control-stepper-value__view--money
+									"
+								></div>
 							</div>
 						</div>
-						<div class="calc-calculator-controls-control-range">
+						<div
+							class="
+								calc-calculator-controls-control-range
+								calc-calculator-controls-control-range--onetime
+							"
+						>
 							<input
 								type="range"
 								name="range"
 								class="calc-calculator-controls-control-range__slider"
+								data-input-name="onetime"
 								value="100000"
 								min="100000"
 								max="100000000"
 							/>
+							<div
+								class="calc-calculator-controls-control-range__percentage"
+							></div>
 						</div>
 					</article>
 					<article
@@ -260,34 +290,44 @@
 						</h3>
 						<div class="calc-calculator-controls-control-stepper">
 							<div class="calc-calculator-controls-control-stepper-value">
-								<div
-									class="
-										calc-calculator-controls-control-stepper-value__view
-										calc-calculator-controls-control-stepper-value__view--money
-									"
-								></div>
 								<input
 									type="number"
 									class="
 										calc-calculator-controls-control-stepper-value__input
 										calc-calculator-controls-control-stepper-value__input--yearly
 									"
+									data-input-name="yearly"
 									value="10000"
 									min="1"
 									max="100000000"
 									maxlength="9"
 								/>
+								<div
+									class="
+										calc-calculator-controls-control-stepper-value__view
+										calc-calculator-controls-control-stepper-value__view--money
+									"
+								></div>
 							</div>
 						</div>
-						<div class="calc-calculator-controls-control-range">
+						<div
+							class="
+								calc-calculator-controls-control-range
+								calc-calculator-controls-control-range--yearly
+							"
+						>
 							<input
 								type="range"
 								name="range"
 								class="calc-calculator-controls-control-range__slider"
+								data-input-name="yearly"
 								value="10000"
 								min="1"
 								max="100000000"
 							/>
+							<div
+								class="calc-calculator-controls-control-range__percentage"
+							></div>
 						</div>
 					</article>
 					<article
@@ -307,23 +347,24 @@
 								+
 							</button>
 							<div class="calc-calculator-controls-control-stepper-value">
-								<div
-									class="
-										calc-calculator-controls-control-stepper-value__view
-										calc-calculator-controls-control-stepper-value__view--percent
-									"
-								></div>
 								<input
 									type="number"
 									class="
 										calc-calculator-controls-control-stepper-value__input
 										calc-calculator-controls-control-stepper-value__input--inflation
 									"
+									data-input-name="inflation"
 									value="7"
 									min="1"
 									max="100"
 									maxlength="3"
 								/>
+								<div
+									class="
+										calc-calculator-controls-control-stepper-value__view
+										calc-calculator-controls-control-stepper-value__view--percent
+									"
+								></div>
 							</div>
 							<button
 								class="
@@ -334,15 +375,24 @@
 								−
 							</button>
 						</div>
-						<div class="calc-calculator-controls-control-range">
+						<div
+							class="
+								calc-calculator-controls-control-range
+								calc-calculator-controls-control-range--inflation
+							"
+						>
 							<input
 								type="range"
 								name="range"
 								class="calc-calculator-controls-control-range__slider"
+								data-input-name="inflation"
 								value="7"
 								min="1"
 								max="100"
 							/>
+							<div
+								class="calc-calculator-controls-control-range__percentage"
+							></div>
 						</div>
 					</article>
 					<div class="calc-calculator-controls-calculate">

@@ -18,10 +18,92 @@ $(document).ready(function () {
   //   });
   // });
 
+  /**
+   * RANGES
+   */
+  $(".calc-calculator-controls-control-range__slider").each(function (ev) {
+    var maxVal = $(this).attr("max");
+    var minVal = $(this).attr("min");
+    var currentValue = $(this).val();
+    var currentInputName = $(this).attr("data-input-name");
+    var currentInput = $(
+      ".calc-calculator-controls-control-stepper-value__input--" +
+        currentInputName
+    );
+    currentInput.val(currentValue);
+
+    var currentViewElement = currentInput
+      .parent()
+      .find(".calc-calculator-controls-control-stepper-value__view");
+
+    currentViewElement.attr(
+      "data-value",
+      +currentValue.toLocaleString("ru-RU")
+    );
+
+    var valuePercent = (currentValue / maxVal) * 100;
+    var currentViewPercentageElement = $(this)
+      .parent()
+      .find(".calc-calculator-controls-control-range__percentage");
+
+    var maxWidth = currentViewPercentageElement.css("max-width");
+    maxWidth = +maxWidth.replace("px", "");
+    valuePercent = (maxWidth / 100) * valuePercent;
+    var percentageModifier = 0;
+    if (valuePercent > 260) {
+      percentageModifier = 15;
+    } else if (valuePercent > 160) {
+      percentageModifier = 10;
+    } else {
+      percentageModifier = 5;
+    }
+    currentViewPercentageElement.width(
+      valuePercent - percentageModifier + "px"
+    );
+  });
   $(".calc-calculator-controls-control-range__slider").on(
-    "change",
+    "change input",
     function (ev) {
-      console.log(this);
+      var maxVal = $(this).attr("max");
+      var minVal = $(this).attr("min");
+      var currentValue = $(this).val();
+      var currentInputName = $(this).attr("data-input-name");
+      var currentInput = $(
+        ".calc-calculator-controls-control-stepper-value__input--" +
+          currentInputName
+      );
+      currentInput.val(currentValue);
+
+      var currentViewElement = currentInput
+        .parent()
+        .find(".calc-calculator-controls-control-stepper-value__view");
+
+      currentViewElement.attr(
+        "data-value",
+        +currentValue.toLocaleString("ru-RU")
+      );
+
+      var valuePercent = (currentValue / maxVal) * 100;
+      var currentViewPercentageElement = $(this)
+        .parent()
+        .find(".calc-calculator-controls-control-range__percentage");
+
+      var maxWidth = currentViewPercentageElement.css("max-width");
+      maxWidth = +maxWidth.replace("px", "");
+      valuePercent = (maxWidth / 100) * valuePercent;
+
+      var percentageModifier = 0;
+      if (valuePercent > 260) {
+        percentageModifier = 15;
+      } else if (valuePercent > 160) {
+        percentageModifier = 10;
+      } else {
+        percentageModifier = 5;
+      }
+
+      currentViewPercentageElement.width(
+        valuePercent - percentageModifier + "px"
+      );
     }
   );
 
@@ -61,6 +143,31 @@ $(document).ready(function () {
         $(this).attr("value", currentValue);
         var currentViewElement = $(this).siblings()[0];
         currentViewElement.setAttribute("data-value", currentValueString);
+
+        var inputRange = $(this)
+          .parent()
+          .parent()
+          .parent()
+          .find(".calc-calculator-controls-control-range__slider");
+        inputRange.val(currentValue);
+        var inputRangeProgress = $(this)
+          .parent()
+          .parent()
+          .parent()
+          .find(".calc-calculator-controls-control-range__percentage");
+        var maxWidth = inputRangeProgress.css("max-width");
+        maxWidth = maxWidth.replace("px", "");
+        var valuePercent = (currentValue / inputRange.attr("max")) * 100;
+        var valuePercent = (maxWidth / 100) * valuePercent;
+        var percentageModifier = 0;
+        if (valuePercent > 260) {
+          percentageModifier = 15;
+        } else if (valuePercent > 160) {
+          percentageModifier = 10;
+        } else {
+          percentageModifier = 5;
+        }
+        inputRangeProgress.width(valuePercent - percentageModifier + "px");
       }
     });
 
@@ -79,39 +186,79 @@ $(document).ready(function () {
    */
   $(".calc-calculator-controls-control-stepper__step--plus").each(function () {
     $(this).on("click", function (ev) {
-      var inputView = ev.currentTarget.nextElementSibling.children[0];
-      var inputField = ev.currentTarget.nextElementSibling.children[1];
-      var currentValue = inputField.getAttribute("value");
+      var inputView = ev.currentTarget.nextElementSibling.children[1];
+      var inputField = ev.currentTarget.nextElementSibling.children[0];
+      var currentValue = $(
+        "." + inputField.classList[1] + "." + inputField.classList[0]
+      ).val();
       currentValue++;
-
-      console.log(currentValue);
-
       inputView.setAttribute("data-value", currentValue);
       inputField.setAttribute("value", currentValue);
-      $("." + inputField.classList[0] + "." + inputField.classList[1]).val(
+      $("." + inputField.classList[1] + "." + inputField.classList[0]).val(
         currentValue
       );
+
+      var inputRange = $(this)
+        .parent()
+        .parent()
+        .find(".calc-calculator-controls-control-range__slider");
+      inputRange.val(currentValue);
+      var inputRangeProgress = $(this)
+        .parent()
+        .parent()
+        .find(".calc-calculator-controls-control-range__percentage");
+      var maxWidth = inputRangeProgress.css("max-width");
+      maxWidth = +maxWidth.replace("px", "");
+      var valuePercent = (currentValue / inputRange.attr("max")) * 100;
+      var valuePercent = (maxWidth / 100) * valuePercent;
+      var percentageModifier = 0;
+      if (valuePercent > 260) {
+        percentageModifier = 15;
+      } else if (valuePercent > 160) {
+        percentageModifier = 10;
+      } else {
+        percentageModifier = 5;
+      }
+      inputRangeProgress.width(valuePercent - percentageModifier + "px");
     });
   });
+
   $(".calc-calculator-controls-control-stepper__step--minus").each(function () {
     $(this).on("click", function (ev) {
-      var inputView = ev.currentTarget.previousElementSibling.children[0];
-      var inputField = ev.currentTarget.previousElementSibling.children[1];
+      var inputView = ev.currentTarget.previousElementSibling.children[1];
+      var inputField = ev.currentTarget.previousElementSibling.children[0];
       var currentValue = $(
-        "." + inputField.classList[0] + "." + inputField.classList[1]
+        "." + inputField.classList[1] + "." + inputField.classList[0]
       ).val();
-      console.log(
-        $("." + inputField.classList[0] + "." + inputField.classList[1])
-      );
-      console.log(currentValue);
-
       if (currentValue > 1) {
         currentValue--;
 
         inputView.setAttribute("data-value", currentValue);
-        $("." + inputField.classList[0] + "." + inputField.classList[1]).val(
+        $("." + inputField.classList[1] + "." + inputField.classList[0]).val(
           currentValue
         );
+        var inputRange = $(this)
+          .parent()
+          .parent()
+          .find(".calc-calculator-controls-control-range__slider");
+        inputRange.val(currentValue);
+        var inputRangeProgress = $(this)
+          .parent()
+          .parent()
+          .find(".calc-calculator-controls-control-range__percentage");
+        var maxWidth = inputRangeProgress.css("max-width");
+        maxWidth = +maxWidth.replace("px", "");
+        var valuePercent = (currentValue / inputRange.attr("max")) * 100;
+        var valuePercent = (maxWidth / 100) * valuePercent;
+        var percentageModifier = 0;
+        if (valuePercent > 260) {
+          percentageModifier = 15;
+        } else if (valuePercent > 160) {
+          percentageModifier = 10;
+        } else {
+          percentageModifier = 5;
+        }
+        inputRangeProgress.width(valuePercent - percentageModifier + "px");
       }
     });
   });
@@ -185,7 +332,6 @@ $(document).ready(function () {
       ".calc-calculator-controls-control-stepper-value__input--inflation"
     ).val();
     calculateObject.arguments.inflation = inflation;
-    console.log(calculateObject.arguments);
   }
 
   function getNoInflation(calculateObject, B4, B5, B6, B7, B8) {
@@ -207,14 +353,6 @@ $(document).ready(function () {
       calculateObject.noInflation.hardPercent.perYear.push(
         Math.round(yearHardResult)
       );
-
-      console.log(
-        year,
-        B4,
-        yearHardResult,
-        `${B6} * ${square1} + ${B7} * ${square2} * ${(1 / B5) * 0.01} - ${B12}`
-      );
-
       if (year == B4) {
         calculateObject.noInflation.easyPercent.total =
           Math.round(yearEasyResult);
@@ -222,17 +360,6 @@ $(document).ready(function () {
           Math.round(yearHardResult);
       }
     }
-    console.log(calculateObject);
-
-    // // no Inflation Easy Percent For 1 instanse
-    // calculateObject.noInflation.easyPercent.total =
-    //   B6 * (B5 * 0.01 * B4) + B7 * (B5 * 0.01 * B4);
-    // // no Inflation Hard Percent
-    // var square1 = Math.pow(1 + (B5 * 0.01) / 1, B4 * 1);
-    // var square2 = Math.pow(1 + (B5 * 0.01) / 1, 1 * B4) - 1;
-    // calculateObject.noInflation.hardPercent.total =
-    //   B6 * square1 + B7 * square2 * (1 / (B5 * 0.01)) - B12;
-    // console.log(calculateObject);
   }
 
   function getInflation(calculateObject, B4, B5, B6, B7, B8) {
@@ -425,17 +552,23 @@ $(document).ready(function () {
         if ($(this).attr("y1") == 269) {
           $(this).attr("x1", +x1 + xModifier);
           $(this).attr("x2", +x2 - xModifier - 2);
-        } else if ($(this).attr("y2") == 15 && $(this).attr("y1") == 15) {
+        } else if ($(this).attr("y1") == 15 && $(this).attr("y2") == 15) {
           $(this).attr("x1", +x1 + xModifier);
-          $(this).attr("x2", +x2 - xModifier);
         } else if ($(this).attr("y1") == 15) {
           $(this).attr("x1", +x1 + xModifier);
           $(this).attr("x2", +x2 + xModifier);
         } else {
-          $(this).attr("x1", +x1 + xModifier + 2);
-          $(this).attr("x2", +x2 - xModifier - 8);
+          //   $(this).attr("x1", +x1 + xModifier + 2);
+          //   $(this).attr("x2", +x2 + xModifier - 8);
         }
       });
     });
+
+    $(".calc-calculator-charts").css({ display: "flex" });
+    $(".calc-calculator-controls").css({ display: "none" });
+  });
+  $(".calc-calculator-charts__return").on("click", function () {
+    $(".calc-calculator-charts").css({ display: "none" });
+    $(".calc-calculator-controls").css({ display: "block" });
   });
 });

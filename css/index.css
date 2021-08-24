@@ -174,6 +174,9 @@ body {
   border: 1px solid rgba(10, 11, 9, 0.04);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  background: url(../img/logo.svg);
+  background-repeat: no-repeat;
+  background-position: top right;
 }
 
 .calc-calculator-controls__title {
@@ -355,6 +358,77 @@ body {
   width: 60px;
 }
 
+.calc-calculator-controls-control-range {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 15px;
+  -ms-flex-wrap: no-wrap;
+      flex-wrap: no-wrap;
+  position: relative;
+}
+
+.calc-calculator-controls-control-range:before, .calc-calculator-controls-control-range:after {
+  font-weight: 700;
+  font-size: 10px;
+  line-height: 100%;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #b3b3b3;
+}
+
+.calc-calculator-controls-control-range:after {
+  display: block;
+  max-width: 150px;
+  width: 100%;
+}
+
+.calc-calculator-controls-control-range--years:before {
+  content: "1";
+}
+
+.calc-calculator-controls-control-range--years:after {
+  content: "100";
+}
+
+.calc-calculator-controls-control-range--median:before {
+  content: "1";
+}
+
+.calc-calculator-controls-control-range--median:after {
+  content: "100%";
+}
+
+.calc-calculator-controls-control-range--onetime:before {
+  content: "1";
+}
+
+.calc-calculator-controls-control-range--onetime:after {
+  content: "100 000 000";
+}
+
+.calc-calculator-controls-control-range--yearly:before {
+  content: "1";
+}
+
+.calc-calculator-controls-control-range--yearly:after {
+  content: "100 000 000";
+}
+
+.calc-calculator-controls-control-range--inflation:before {
+  content: "1";
+}
+
+.calc-calculator-controls-control-range--inflation:after {
+  content: "100%";
+}
+
 .calc-calculator-controls-control-range__slider {
   -webkit-appearance: none;
      -moz-appearance: none;
@@ -366,6 +440,11 @@ body {
   width: calc(attr(max) / 100 * attr(value));
   background-color: red;
   height: 20px;
+}
+
+input[type="range"].calc-calculator-controls-control-range__slider {
+  min-width: 280px;
+  max-width: 280px;
 }
 
 .calc-calculator-controls-calculate {
@@ -397,12 +476,10 @@ body {
 }
 
 .calc-calculator-charts {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   -webkit-box-align: end;
       -ms-flex-align: end;
           align-items: flex-end;
+  display: none;
 }
 
 .calc-calculator-charts__return {
@@ -421,6 +498,9 @@ body {
   text-transform: uppercase;
   color: #0a0b09;
   padding: 18px;
+  margin-left: auto;
+  position: relative;
+  top: -40px;
 }
 
 .calc-calculator-charts-chart__wrapper {
@@ -594,11 +674,50 @@ body {
   overflow: visible;
 }
 
-.calc-calculator-controls-control-stepper-value__view {
-  top: -20px;
+.calc-calculator-controls-control-range__slider {
+  -webkit-appearance: none;
+  width: 100%;
+  margin: 8px 0;
 }
 
-.calc-calculator-controls-control-stepper-value__input {
-  color: red;
+.calc-calculator-controls-control-range__slider::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 4px;
+  cursor: pointer;
+  background: #f7f7f7;
+  border-radius: 0;
+}
+
+.calc-calculator-controls-control-range__slider::-webkit-slider-thumb {
+  height: 8px;
+  width: 8px;
+  border-radius: 100%;
+  -webkit-box-sizing: content-box;
+          box-sizing: content-box;
+  background: #373c44;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -6px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#c95a2b), to(#ffb976));
+  background-image: linear-gradient(180deg, #c95a2b 0%, #ffb976 100%);
+  border: 4px solid #ffb976;
+  -webkit-box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0 0 2px #ffb976;
+          box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1), 0 0 2px #ffb976;
+}
+
+.calc-calculator-controls-control-range__percentage {
+  background: -webkit-gradient(linear, left top, right top, from(#c95a2b), to(#ffb976));
+  background: linear-gradient(90deg, #c95a2b 0%, #ffb976 100%);
+  border-radius: 999px;
+  width: 100%;
+  max-width: 280px;
+  height: 4px;
+  position: absolute;
+  top: 8px;
+  left: 20px;
+  max-width: 280px;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+  pointer-events: none;
 }
 /*# sourceMappingURL=index.css.map */
