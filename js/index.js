@@ -184,18 +184,44 @@ $(document).ready(function () {
   }
 
   function getNoInflation(calculateObject, B4, B5, B6, B7, B8, B12) {
-    // for (;;) {
+    calculateObject.noInflation.easyPercent.perYear = [];
+    calculateObject.noInflation.hardPercent.perYear = [];
+    for (var year = 1; year <= B4; year++) {
+      console.log(year, B4);
 
-    // }
-    // no Inflation Easy Percent
-    calculateObject.noInflation.easyPercent.total =
-      B6 * (B5 * 0.01 * B4) + B7 * (B5 * 0.01 * B4);
-    // no Inflation Hard Percent
-    var square1 = Math.pow(1 + (B5 * 0.01) / 1, B4 * 1);
-    var square2 = Math.pow(1 + (B5 * 0.01) / 1, 1 * B4) - 1;
-    calculateObject.noInflation.hardPercent.total =
-      B6 * square1 + B7 * square2 * (1 / (B5 * 0.01)) - B12;
+      // no Inflation Easy Percent
+      var yearEasyResult = B6 * (B5 * 0.01 * year) + B7 * (B5 * 0.01 * year);
+
+      // no Inflation Hard Percent
+      var square1 = Math.pow(1 + (B5 * 0.01) / 1, year * 1);
+      var square2 = Math.pow(1 + (B5 * 0.01) / 1, 1 * year) - 1;
+      var yearHardResult =
+        B6 * square1 + B7 * square2 * (1 / (B5 * 0.01)) - B12;
+      calculateObject.noInflation.easyPercent.perYear.push(
+        Math.round(yearEasyResult)
+      );
+      calculateObject.noInflation.hardPercent.perYear.push(
+        Math.round(yearHardResult)
+      );
+
+      if (year == B4) {
+        calculateObject.noInflation.easyPercent.total =
+          Math.round(yearEasyResult);
+        calculateObject.noInflation.hardPercent.total =
+          Math.round(yearHardResult);
+      }
+    }
     console.log(calculateObject);
+
+    // // no Inflation Easy Percent For 1 instanse
+    // calculateObject.noInflation.easyPercent.total =
+    //   B6 * (B5 * 0.01 * B4) + B7 * (B5 * 0.01 * B4);
+    // // no Inflation Hard Percent
+    // var square1 = Math.pow(1 + (B5 * 0.01) / 1, B4 * 1);
+    // var square2 = Math.pow(1 + (B5 * 0.01) / 1, 1 * B4) - 1;
+    // calculateObject.noInflation.hardPercent.total =
+    //   B6 * square1 + B7 * square2 * (1 / (B5 * 0.01)) - B12;
+    // console.log(calculateObject);
   }
 
   function getInflation(calculateObject, B4, B5, B6, B7, B8, B12) {
