@@ -720,4 +720,20 @@ input[type="range"].calc-calculator-controls-control-range__slider {
   transition: 0.2s all;
   pointer-events: none;
 }
+
+@media (max-width: 1199px) {
+  .calc-calculator-charts {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    gap: 30px;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .calc-calculator-charts__return {
+    margin-right: auto;
+  }
+}
 /*# sourceMappingURL=index.css.map */

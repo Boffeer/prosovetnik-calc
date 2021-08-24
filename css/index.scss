@@ -726,3 +726,14 @@ input[type="range"].calc-calculator-controls-control-range__slider {
 // .calc-calculator-controls-control-stepper-value__input {
 // 	color: red;
 // }
+
+@media (max-width: 1199px) {
+	.calc-calculator-charts {
+		flex-direction: column;
+		gap: 30px;
+		align-items: center;
+	}
+	.calc-calculator-charts__return {
+		margin-right: auto;
+	}
+}
