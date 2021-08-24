@@ -55,7 +55,7 @@ $(document).ready(function () {
     } else if (valuePercent > 160) {
       percentageModifier = 10;
     } else {
-      percentageModifier = 5;
+      percentageModifier = 2;
     }
     currentViewPercentageElement.width(
       valuePercent - percentageModifier + "px"
@@ -98,7 +98,7 @@ $(document).ready(function () {
       } else if (valuePercent > 160) {
         percentageModifier = 10;
       } else {
-        percentageModifier = 5;
+        percentageModifier = 2;
       }
 
       currentViewPercentageElement.width(
@@ -165,7 +165,7 @@ $(document).ready(function () {
         } else if (valuePercent > 160) {
           percentageModifier = 10;
         } else {
-          percentageModifier = 5;
+          percentageModifier = 2;
         }
         inputRangeProgress.width(valuePercent - percentageModifier + "px");
       }
@@ -217,7 +217,7 @@ $(document).ready(function () {
       } else if (valuePercent > 160) {
         percentageModifier = 10;
       } else {
-        percentageModifier = 5;
+        percentageModifier = 2;
       }
       inputRangeProgress.width(valuePercent - percentageModifier + "px");
     });
@@ -256,7 +256,7 @@ $(document).ready(function () {
         } else if (valuePercent > 160) {
           percentageModifier = 10;
         } else {
-          percentageModifier = 5;
+          percentageModifier = 2;
         }
         inputRangeProgress.width(valuePercent - percentageModifier + "px");
       }
@@ -420,6 +420,7 @@ $(document).ready(function () {
     // low: 0,
     showArea: true,
     height: "304px",
+    stretch: true,
   };
 
   /*
@@ -564,11 +565,11 @@ $(document).ready(function () {
       });
     });
 
-    $(".calc-calculator-charts").css({ display: "flex" });
+    $(".calc-calculator-charts").addClass("calc-calculator-charts--visible");
     $(".calc-calculator-controls").css({ display: "none" });
   });
   $(".calc-calculator-charts__return").on("click", function () {
-    $(".calc-calculator-charts").css({ display: "none" });
-    $(".calc-calculator-controls").css({ display: "block" });
+    $(".calc-calculator-charts").removeClass("calc-calculator-charts--visible");
+    $(".calc-calculator-controls").css({ display: "flex" });
   });
 });
