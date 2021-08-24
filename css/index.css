@@ -357,6 +357,21 @@ body {
   text-align: center;
 }
 
+.calc-calculator-controls-control-stepper-value__input::-moz-selection {
+  background: var(--c-accent);
+  /* Safari */
+}
+
+.calc-calculator-controls-control-stepper-value__input::selection {
+  background: var(--c-accent);
+  /* Safari */
+}
+
+.calc-calculator-controls-control-stepper-value__input::-moz-selection {
+  background: var(--c-accent);
+  /* Safari */
+}
+
 .calc-calculator-controls-control-stepper-value__input:focus {
   border: 1px solid var(--c-accent);
 }
@@ -481,6 +496,14 @@ input[type="range"].calc-calculator-controls-control-range__slider {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: block;
+  -webkit-transition: 0.2s background;
+  transition: 0.2s background;
+}
+
+.calc-calculator-controls-calculate__button:hover {
+  background: #ff9f43;
+  -webkit-transition: 0.2s background;
+  transition: 0.2s background;
 }
 
 .calc-calculator-charts {
@@ -522,6 +545,15 @@ input[type="range"].calc-calculator-controls-control-range__slider {
   margin-left: auto;
   position: relative;
   top: -40px;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
+}
+
+.calc-calculator-charts__return:hover {
+  background: #0a0b09;
+  color: #fff;
+  -webkit-transition: 0.2s all;
+  transition: 0.2s all;
 }
 
 .calc-calculator-charts-chart__wrapper {
@@ -737,8 +769,8 @@ input[type="range"].calc-calculator-controls-control-range__slider {
   top: 8px;
   left: 20px;
   max-width: 280px;
-  -webkit-transition: 0.2s all;
-  transition: 0.2s all;
+  -webkit-transition: 0.025s all;
+  transition: 0.025s all;
   pointer-events: none;
 }
 
@@ -958,13 +990,13 @@ input[type="range"].calc-calculator-controls-control-range__slider {
     font-size: 18px;
     position: -webkit-sticky;
     position: sticky;
-    left: 10px;
+    left: 2px;
     display: inline-block;
   }
   .calc-calculator-charts-chart-summary-stat {
     position: -webkit-sticky;
     position: sticky;
-    left: 10px;
+    left: 20px;
     display: inline-block;
     width: 70vw;
   }

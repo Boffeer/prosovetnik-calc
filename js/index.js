@@ -36,10 +36,7 @@ $(document).ready(function () {
       .parent()
       .find(".calc-calculator-controls-control-stepper-value__view");
 
-    currentViewElement.attr(
-      "data-value",
-      +currentValue.toLocaleString("ru-RU")
-    );
+    currentViewElement.attr("data-value", currentValue.toLocaleString("ru-RU"));
 
     var valuePercent = (currentValue / maxVal) * 100;
     var currentViewPercentageElement = $(this)
@@ -52,8 +49,10 @@ $(document).ready(function () {
     var percentageModifier = 0;
     if (valuePercent > 260) {
       percentageModifier = 15;
-    } else if (valuePercent > 160) {
-      percentageModifier = 10;
+    } else if (valuePercent > 130) {
+      percentageModifier = 6;
+    } else if (valuePercent > 100) {
+      percentageModifier = 4;
     } else {
       percentageModifier = 2;
     }
@@ -78,10 +77,9 @@ $(document).ready(function () {
         .parent()
         .find(".calc-calculator-controls-control-stepper-value__view");
 
-      currentViewElement.attr(
-        "data-value",
-        +currentValue.toLocaleString("ru-RU")
-      );
+      var currentValueToView = +currentValue;
+      currentValueToView = currentValueToView.toLocaleString("ru-RU");
+      currentViewElement.attr("data-value", currentValueToView);
 
       var valuePercent = (currentValue / maxVal) * 100;
       var currentViewPercentageElement = $(this)
@@ -95,8 +93,10 @@ $(document).ready(function () {
       var percentageModifier = 0;
       if (valuePercent > 260) {
         percentageModifier = 15;
-      } else if (valuePercent > 160) {
-        percentageModifier = 10;
+      } else if (valuePercent > 130) {
+        percentageModifier = 6;
+      } else if (valuePercent > 100) {
+        percentageModifier = 4;
       } else {
         percentageModifier = 2;
       }
@@ -162,8 +162,10 @@ $(document).ready(function () {
         var percentageModifier = 0;
         if (valuePercent > 260) {
           percentageModifier = 15;
-        } else if (valuePercent > 160) {
-          percentageModifier = 10;
+        } else if (valuePercent > 130) {
+          percentageModifier = 6;
+        } else if (valuePercent > 100) {
+          percentageModifier = 4;
         } else {
           percentageModifier = 2;
         }
@@ -192,7 +194,10 @@ $(document).ready(function () {
         "." + inputField.classList[1] + "." + inputField.classList[0]
       ).val();
       currentValue++;
-      inputView.setAttribute("data-value", currentValue);
+      inputView.setAttribute(
+        "data-value",
+        currentValue.toLocaleString("ru-RU")
+      );
       inputField.setAttribute("value", currentValue);
       $("." + inputField.classList[1] + "." + inputField.classList[0]).val(
         currentValue
@@ -214,8 +219,10 @@ $(document).ready(function () {
       var percentageModifier = 0;
       if (valuePercent > 260) {
         percentageModifier = 15;
-      } else if (valuePercent > 160) {
-        percentageModifier = 10;
+      } else if (valuePercent > 130) {
+        percentageModifier = 6;
+      } else if (valuePercent > 100) {
+        percentageModifier = 4;
       } else {
         percentageModifier = 2;
       }
@@ -233,7 +240,10 @@ $(document).ready(function () {
       if (currentValue > 1) {
         currentValue--;
 
-        inputView.setAttribute("data-value", currentValue);
+        inputView.setAttribute(
+          "data-value",
+          currentValue.toLocaleString("ru-RU")
+        );
         $("." + inputField.classList[1] + "." + inputField.classList[0]).val(
           currentValue
         );
@@ -253,8 +263,10 @@ $(document).ready(function () {
         var percentageModifier = 0;
         if (valuePercent > 260) {
           percentageModifier = 15;
-        } else if (valuePercent > 160) {
-          percentageModifier = 10;
+        } else if (valuePercent > 130) {
+          percentageModifier = 6;
+        } else if (valuePercent > 100) {
+          percentageModifier = 4;
         } else {
           percentageModifier = 2;
         }
@@ -541,7 +553,7 @@ $(document).ready(function () {
           $(this).find("span").addClass("calc-chart-label");
         } else {
           var x = $(this).attr("x");
-          $(this).attr("x", +x + xModifier);
+          $(this).attr("x", +x + 85);
           $(this).find("span").addClass("calc-chart-label--x");
           $(this).find("span").addClass("calc-chart-label");
         }

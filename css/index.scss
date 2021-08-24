@@ -340,6 +340,12 @@ body {
 	height: 100%;
 	color: transparent;
 	text-align: center;
+	&::selection {
+		background: var(--c-accent); /* Safari */
+	}
+	&::-moz-selection {
+		background: var(--c-accent); /* Safari */
+	}
 	&:focus {
 		border: 1px solid var(--c-accent);
 	}
@@ -447,6 +453,11 @@ input[type="range"].calc-calculator-controls-control-range__slider {
 	padding: 18px;
 	box-sizing: border-box;
 	display: block;
+	transition: 0.2s background;
+	&:hover {
+		background: darken(#ffb976, 10);
+		transition: 0.2s background;
+	}
 }
 
 .calc-calculator-charts {
@@ -481,6 +492,12 @@ input[type="range"].calc-calculator-controls-control-range__slider {
 	margin-left: auto;
 	position: relative;
 	top: -40px;
+	transition: 0.2s all;
+	&:hover {
+		background: #0a0b09;
+		color: #fff;
+		transition: 0.2s all;
+	}
 }
 .calc-calculator-charts-chart__wrapper {
 	max-width: 830px;
@@ -668,7 +685,7 @@ input[type="range"].calc-calculator-controls-control-range__slider {
 	top: 8px;
 	left: 20px;
 	max-width: 280px;
-	transition: 0.2s all;
+	transition: 0.025s all;
 	pointer-events: none;
 }
 
@@ -840,9 +857,6 @@ input[type="range"].calc-calculator-controls-control-range__slider {
 	.calc-calculator-charts-chart-summary {
 		flex-wrap: wrap;
 	}
-	.calc-calculator-charts-chart-summary-container {
-		// margin-left: 0;
-	}
 }
 @media (max-width: 1199px) and (min-width: 769px) {
 	.calc-calculator-controls-control--per-year {
@@ -926,12 +940,12 @@ input[type="range"].calc-calculator-controls-control-range__slider {
 	.calc-calculator-charts-chart__title {
 		font-size: 18px;
 		position: sticky;
-		left: 10px;
+		left: 2px;
 		display: inline-block;
 	}
 	.calc-calculator-charts-chart-summary-stat {
 		position: sticky;
-		left: 10px;
+		left: 20px;
 		display: inline-block;
 		width: 70vw;
 	}
