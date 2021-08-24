@@ -28,7 +28,10 @@ $(document).ready(function () {
   /**
    * Calculator input view
    */
-  $(".calc-calculator-controls-control-stepper-value__input").each(function () {
+  $(".calc-calculator-controls-control-stepper-value__input").each(function (
+    index,
+    inputElement
+  ) {
     var currentValue = +$(this).val();
     currentValueString = currentValue.toLocaleString("ru-Ru");
     var maxValue = +$(this).attr("max");
@@ -43,7 +46,7 @@ $(document).ready(function () {
       var currentViewElement = $(this).siblings()[0];
       currentViewElement.setAttribute("data-value", currentValueString);
     }
-    $(this).on("input change", function () {
+    $(inputElement).on("input change", function () {
       var currentValue = +$(this).val();
       currentValueString = currentValue.toLocaleString("ru-Ru");
       var maxValue = +$(this).attr("max");
@@ -54,16 +57,11 @@ $(document).ready(function () {
         $(this).val(currentValue);
         var currentViewElement = $(this).siblings()[0];
         currentViewElement.setAttribute("data-value", maxValueString);
-        // } else if (currentValue < 1) {
-        //   currentValueString = 1;
-        //   $(this).val(currentValueString);
-        //   var currentViewElement = $(this).siblings()[0];
-        //   currentViewElement.setAttribute("data-value", currentValueString);
       } else {
+        $(this).attr("value", currentValue);
         var currentViewElement = $(this).siblings()[0];
         currentViewElement.setAttribute("data-value", currentValueString);
       }
-      console.log($(this).val());
     });
 
     $(this).on("blur", function () {
@@ -79,35 +77,42 @@ $(document).ready(function () {
   /**
    * Calculator stepper
    */
-  function stepperPlus(ev) {
-    var inputView = ev.target.nextElementSibling.children[0];
-    var inputField = ev.target.nextElementSibling.children[1];
-    var currentValue = inputField.getAttribute("value");
-    currentValue++;
+  $(".calc-calculator-controls-control-stepper__step--plus").each(function () {
+    $(this).on("click", function (ev) {
+      var inputView = ev.currentTarget.nextElementSibling.children[0];
+      var inputField = ev.currentTarget.nextElementSibling.children[1];
+      var currentValue = inputField.getAttribute("value");
+      currentValue++;
 
-    inputView.setAttribute("data-value", currentValue);
-    inputField.setAttribute("value", currentValue);
-  }
-  function stepperMinus(ev) {
-    var inputView = ev.target.previousElementSibling.children[0];
-    var inputField = ev.target.previousElementSibling.children[1];
-    var currentValue = inputField.getAttribute("value");
-
-    if (currentValue > 1) {
-      currentValue--;
+      console.log(currentValue);
 
       inputView.setAttribute("data-value", currentValue);
       inputField.setAttribute("value", currentValue);
-    }
-  }
-  $(".calc-calculator-controls-control-stepper__step--plus").each(function () {
-    $(this).on("click", function (ev) {
-      stepperPlus(ev);
+      $("." + inputField.classList[0] + "." + inputField.classList[1]).val(
+        currentValue
+      );
     });
   });
   $(".calc-calculator-controls-control-stepper__step--minus").each(function () {
     $(this).on("click", function (ev) {
-      stepperMinus(ev);
+      var inputView = ev.currentTarget.previousElementSibling.children[0];
+      var inputField = ev.currentTarget.previousElementSibling.children[1];
+      var currentValue = $(
+        "." + inputField.classList[0] + "." + inputField.classList[1]
+      ).val();
+      console.log(
+        $("." + inputField.classList[0] + "." + inputField.classList[1])
+      );
+      console.log(currentValue);
+
+      if (currentValue > 1) {
+        currentValue--;
+
+        inputView.setAttribute("data-value", currentValue);
+        $("." + inputField.classList[0] + "." + inputField.classList[1]).val(
+          currentValue
+        );
+      }
     });
   });
 

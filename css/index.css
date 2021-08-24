@@ -593,4 +593,12 @@ body {
 .calc-calculator-charts-chart-summary-container svg {
   overflow: visible;
 }
+
+.calc-calculator-controls-control-stepper-value__view {
+  top: -20px;
+}
+
+.calc-calculator-controls-control-stepper-value__input {
+  color: red;
+}
 /*# sourceMappingURL=index.css.map */
