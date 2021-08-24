@@ -1024,4 +1024,9 @@ input[type="range"].calc-calculator-controls-control-range__slider {
     }
   }
 }
+
+.ct-label.ct-horizontal.ct-end {
+  -webkit-transform: translateX(-35px);
+          transform: translateX(-35px);
+}
 /*# sourceMappingURL=index.css.map */
