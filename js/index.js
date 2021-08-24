@@ -225,20 +225,36 @@ $(document).ready(function () {
   }
 
   function getInflation(calculateObject, B4, B5, B6, B7, B8, B12) {
-    // inflatoin easy percent
-    calculateObject.inflation.easyPercent.total = Math.round(
-      B6 * ((B5 * 0.01 - B8 * 0.01) * B4) + B7 * ((B5 * 0.01 - B8 * 0.01) * B4)
-    );
+    calculateObject.inflation.easyPercent.perYear = [];
+    calculateObject.inflation.hardPercent.perYear = [];
+    for (var year = 1; year <= B4; year++) {
+      // no Inflation Easy Percent
+      var yearEasyResult = Math.round(
+        B6 * ((B5 * 0.01 - B8 * 0.01) * year) +
+          B7 * ((B5 * 0.01 - B8 * 0.01) * year)
+      );
 
-    // inflatoin hard percent
-    calculateObject.inflation.hardPercent.total =
-      B6 * Math.pow(1 + (B5 * 0.01 - B8 * 0.01) / 1, B4 * 1) +
-      (B7 * (Math.pow(1 + (B5 * 0.01 - B8 * 0.01) / 1, 1 * B4) - 1) * 1) /
-        (B5 * 0.01 - B8 * 0.01) -
-      B12;
-    calculateObject.inflation.hardPercent.total = Math.round(
-      calculateObject.inflation.hardPercent.total
-    );
+      // no Inflation Hard Percent
+      var yearHardResult =
+        B6 * Math.pow(1 + (B5 * 0.01 - B8 * 0.01) / 1, year * 1) +
+        (B7 * (Math.pow(1 + (B5 * 0.01 - B8 * 0.01) / 1, 1 * year) - 1) * 1) /
+          (B5 * 0.01 - B8 * 0.01) -
+        B12;
+
+      calculateObject.inflation.easyPercent.perYear.push(
+        Math.round(yearEasyResult)
+      );
+      calculateObject.inflation.hardPercent.perYear.push(
+        Math.round(yearHardResult)
+      );
+
+      if (year == B4) {
+        calculateObject.inflation.easyPercent.total =
+          Math.round(yearEasyResult);
+        calculateObject.inflation.hardPercent.total =
+          Math.round(yearHardResult);
+      }
+    }
   }
 
   function calculateInvest(calculateObject) {
